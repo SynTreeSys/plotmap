@@ -28,8 +28,15 @@ last stable version of the dataset. More information on the project can be found
 
 <br>
 
+### How to visualize the map
+
+To open the map just click on the following link: https://syntreesys.github.io/plotmap/
+
+Three visualization options are provided with the plot coordinates, which are provided by [OpenStreetMap](https://www.openstreetmap.org/), [Esri World Imagery](https://www.esri.com/en-us/capabilities/imagery-remote-sensing/capabilities/content) and [OpenTopoMap](https://opentopomap.org/).
+
+<br>
 
 ##### Note
 
 Only the coarse plot coordinates and the respective network are provided due to
-third party restictions on plot metadata.
+third-party restrictions on plot metadata.
