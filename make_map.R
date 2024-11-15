@@ -9,7 +9,7 @@
 path.from <- gsub("Plot_map", "WP1_Data_harmonization/data/derived-data/database", 
                   here::here())
 list.files(path.from) # chose the most up-to-date version and change below
-version.name <- "syntreesys_dataset_version_0.0.4.rds"
+version.name <- "syntreesys_dataset_version_0.0.6.rds"
 
 path.from1 <- file.path(path.from, version.name)
 path.to <- here::here(list("data", version.name))
