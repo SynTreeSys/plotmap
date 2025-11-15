@@ -14,10 +14,10 @@
 
 ## RENATO'S adapted code
 # getting the most up-to-date plot data
-path.from <- gsub("plotmap", "WP1_Data_harmonization/data/derived-data/database", 
+path.from <- gsub("Plot_map", "WP1_Data_harmonization/data/derived-data/database", 
                   here::here())
 list.files(path.from) # chose the most up-to-date version and change below
-version.name <- "syntreesys_dataset_version_0.0.6.rds"
+version.name <- "syntreesys_dataset_version_0.0.7.rds"
 
 path.from1 <- file.path(path.from, version.name)
 path.to <- here::here(list("data", version.name))
@@ -34,13 +34,14 @@ plots$network <- ifelse(
 
 projcrs <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
 
-plots_sf <- sf::st_as_sf(x = plots[, c("plotLongitude", "plotLatitude", "network")],                         
+plots_sf <- sf::st_as_sf(x = plots[, c("plotLongitude", "plotLatitude", "network", "plotID")],                         
          coords = c("plotLongitude", "plotLatitude"),
          crs = projcrs)
 
+plots_sf$network[plots_sf$network %in% "Botropandes"] <- "ForestPlots"
 rep_these <- plots_sf$network %in% c("GuatemalaPlots", "ManabiPlots", 
                                      "MisionesPlots", "SanEmilio",
-                                     "Botropandes")
+                                     "GolfoDulcePlots")
 plots_sf$network[rep_these] <- "Miscellaneous"
 
 library(RColorBrewer)
@@ -49,6 +50,11 @@ library(RColorBrewer)
 
 # preparing and rendering the map
 col.f <- function (n) { brewer.pal((n), "Set3") }
+legendas <- leafpop::popupTable(plots_sf,
+                                zcol = c("network", "plotID"),
+                                feature.id = FALSE,
+                                row.numbers = FALSE)
+
 m <- mapview::mapview(plots_sf, zcol = "network",
                       col.regions = col.f,
                       #native.crs = TRUE,
@@ -58,7 +64,8 @@ m <- mapview::mapview(plots_sf, zcol = "network",
                         "OpenStreetMap",
                         "Esri.WorldImagery",
                         "OpenTopoMap"),
-                      layer.name = "SynTreeSys networks"
+                      layer.name = "SynTreeSys networks",
+                      popup = legendas
                       )
 mapview::mapshot(m, url = here::here("index.html"))
 
