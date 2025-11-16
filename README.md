@@ -29,5 +29,5 @@ and [OpenTopoMap](https://opentopomap.org/).
 
 ##### Note
 
-Only the coarse plot coordinates and the respective network are provided
-due to third-party restrictions on plot metadata.
+Only the coarse plot coordinates and the respective network and plot ID
+are provided due to third-party restrictions on plot metadata.
